@@ -616,14 +616,6 @@ export default function EkeGame({
               </motion.div>
 
             </div>
-
-            {/* Nút tự vẽ góc */}
-            <button
-              onClick={onPlaygroundClick}
-              className="mt-5 px-5 py-1.5 border-2 border-dashed border-indigo-400 hover:border-indigo-600 text-indigo-700 hover:text-indigo-900 font-extrabold text-xs rounded-xl transition-all inline-flex items-center gap-1 cursor-pointer"
-            >
-              <Compass className="w-3.5 h-3.5" />
-            </button>
           </div>
         </motion.div>
       </div>
