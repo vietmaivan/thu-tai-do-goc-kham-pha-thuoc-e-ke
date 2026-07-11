@@ -354,6 +354,7 @@ export default function App() {
         </header>
 
         {/* THANH THÔNG TIN HỌC SINH (STUDENT PROFILE BAR) - RESPONSIVE */}
+        {/*
         <div className="bg-slate-50 border-b border-slate-200 px-3 py-1.5 sm:px-4 sm:py-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs" id="student-profile-bar">
           <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
             <span className="font-extrabold text-slate-500 flex items-center gap-1">
@@ -384,7 +385,7 @@ export default function App() {
             ✨ Kết quả làm bài và danh hiệu sẽ được đồng bộ tự động lên Bảng xếp hạng và Google Sheets!
           </p>
         </div>
-
+        */}
         {/* 2. KHU VỰC KHUNG GIAO DIỆN CHÍNH TRONG 1 MÀN HÌNH (MAIN CONTENT) */}
         <main className="flex-1 overflow-visible lg:overflow-hidden p-2 sm:p-3 md:p-4 flex flex-col justify-center max-w-7xl w-full mx-auto" id="main-content-section">
           <div className="flex-1 overflow-visible lg:overflow-hidden">
