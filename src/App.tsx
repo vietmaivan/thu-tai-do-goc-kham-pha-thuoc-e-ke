@@ -225,128 +225,148 @@ export default function App() {
   const badge = getBadgeTitle(score);
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-gradient-to-b from-blue-50 via-indigo-50 to-emerald-50 text-slate-800 font-sans overflow-hidden" id="app-root-container">
-      {/* GIAO DIỆN CHÍNH KHÔNG CUỘN TRANG */}
-      <div className="flex-1 flex flex-col overflow-hidden">
-        {/* 1. THANH ĐẦU TRANG SIÊU NHỎ GỌN (HEADER) */}
-        <header className="bg-white border-b-2 border-slate-200 h-14 sm:h-16 flex-shrink-0 flex items-center justify-between px-4 shadow-sm z-30" id="main-app-header">
+    <div className="min-h-screen lg:h-screen w-full flex flex-col bg-gradient-to-b from-blue-50 via-indigo-50 to-emerald-50 text-slate-800 font-sans overflow-y-auto lg:overflow-hidden" id="app-root-container">
+      {/* GIAO DIỆN CHÍNH KHÔNG TRÀN TRÊN DESKTOP, CUỘN TRÊN MOBILE */}
+      <div className="flex-1 flex flex-col overflow-visible lg:overflow-hidden">
+        {/* 1. THANH ĐẦU TRANG LINH HOẠT (HEADER) */}
+        <header className="bg-white border-b-2 border-slate-200 min-h-[3.5rem] py-2 md:py-0 md:h-16 flex-shrink-0 flex flex-col md:flex-row items-center justify-between px-3 md:px-4 shadow-sm z-30 gap-2.5" id="main-app-header">
           
-          {/* Logo */}
-          <div className="flex items-center gap-2">
-            <div className="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center shadow border-2 border-white transform rotate-3">
-              <Compass className="w-5 h-5 text-white" />
+          {/* Nhóm 1: Logo, Switcher Chế độ chơi và Nút âm thanh (Cho Mobile gom hàng 1) */}
+          <div className="flex items-center justify-between md:justify-start w-full md:w-auto gap-2 md:gap-3">
+            {/* Logo */}
+            <div className="flex items-center gap-1.5">
+              <div className="w-8 h-8 md:w-9 md:h-9 bg-indigo-600 rounded-xl flex items-center justify-center shadow border-2 border-white transform rotate-3 flex-shrink-0">
+                <Compass className="w-4 h-4 md:w-5 md:h-5 text-white animate-spin-slow" />
+              </div>
+              <div className="hidden sm:block text-left">
+                <h1 className="text-xs md:text-sm font-black text-indigo-900 leading-none uppercase">
+                  Bé đo góc
+                </h1>
+                <span className="text-[8px] md:text-[10px] font-bold text-indigo-500 block mt-0.5 uppercase tracking-wider">
+                  Ê-ke Trực quan
+                </span>
+              </div>
             </div>
-            <div className="hidden sm:block text-left">
-              <h1 className="text-sm font-black text-indigo-900 leading-none">
-                BÉ ĐO GÓC LỚP 3
-              </h1>
-              <span className="text-[10px] font-bold text-indigo-500 block mt-0.5 uppercase tracking-wider">
-                Thực hành ê-ke trực quan
-              </span>
+
+            {/* SWITCHER CHẾ ĐỘ CHƠI (TABS) */}
+            <div className="bg-slate-100 p-0.5 md:p-1 rounded-xl border border-slate-200 flex gap-0.5 md:gap-1" id="header-tab-switcher">
+              <button
+                onClick={() => handleTabChange('practice')}
+                className={`px-2.5 py-1 md:px-3 md:py-1.5 rounded-lg font-black text-[10px] md:text-xs transition-all flex items-center gap-1 cursor-pointer ${
+                  activeTab === 'practice'
+                    ? 'bg-indigo-600 text-white shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+                id="header-tab-practice"
+              >
+                <span>Học đo góc</span>
+              </button>
+              <button
+                onClick={() => handleTabChange('playground')}
+                className={`px-2.5 py-1 md:px-3 md:py-1.5 rounded-lg font-black text-[10px] md:text-xs transition-all flex items-center gap-1 cursor-pointer ${
+                  activeTab === 'playground'
+                    ? 'bg-indigo-600 text-white shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+                id="header-tab-playground"
+              >
+                <span>Tự vẽ góc</span>
+              </button>
             </div>
+
+            {/* Nút Âm thanh cho mobile hàng 1 */}
+            <button
+              onClick={toggleMute}
+              className="p-1.5 bg-slate-50 hover:bg-slate-100 rounded-lg text-slate-500 border border-slate-200 transition-all cursor-pointer md:hidden flex-shrink-0"
+              title={isMuted ? 'Bật âm thanh' : 'Tắt âm thanh'}
+            >
+              {isMuted ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
+            </button>
           </div>
 
-          {/* SWITCHER CHẾ ĐỘ CHƠI (TABS) */}
-          <div className="bg-slate-100 p-1 rounded-xl border border-slate-200 flex gap-1" id="header-tab-switcher">
-            <button
-              onClick={() => handleTabChange('practice')}
-              className={`px-3 py-1.5 rounded-lg font-black text-xs transition-all flex items-center gap-1 cursor-pointer ${
-                activeTab === 'practice'
-                  ? 'bg-indigo-600 text-white shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-              id="header-tab-practice"
-            >
-              <span>Học đo góc</span>
-            </button>
-            <button
-              onClick={() => handleTabChange('playground')}
-              className={`px-3 py-1.5 rounded-lg font-black text-xs transition-all flex items-center gap-1 cursor-pointer ${
-                activeTab === 'playground'
-                  ? 'bg-indigo-600 text-white shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-              id="header-tab-playground"
-            >
-              <span>Tự vẽ góc</span>
-            </button>
-          </div>
+          {/* Nhóm 2: Các chỉ số & Hành động (Cho Mobile gom hàng 2 vừa khít) */}
+          <div className="flex items-center justify-between md:justify-end w-full md:w-auto gap-1.5 md:gap-2">
+            
+            <div className="flex items-center gap-1.5">
+              {/* Thời gian học thực tế */}
+              <div className="bg-sky-50 border border-sky-200 rounded-xl py-1 px-2 md:px-2.5 flex items-center gap-1 text-[10px] md:text-xs shadow-xs" id="header-timer" title="Thời gian học thực tế của bé">
+                <span className="text-sky-500 animate-pulse text-[11px] md:text-xs">⏱️</span>
+                <span className="font-black text-sky-700 font-mono">{formatStopwatch(elapsedSeconds)}</span>
+              </div>
 
-          {/* Công cụ góc phải */}
-          <div className="flex items-center gap-2">
-            {/* Thời gian học thực tế */}
-            <div className="bg-sky-50 border border-sky-200 rounded-xl py-1 px-2 md:px-2.5 flex items-center gap-1 sm:gap-1.5 text-[11px] sm:text-xs shadow-xs" id="header-timer" title="Thời gian học thực tế của bé">
-              <span className="text-sky-500 animate-pulse">⏱️</span>
-              <span className="font-black text-sky-700 font-mono">{formatStopwatch(elapsedSeconds)}</span>
-            </div>
-
-            {/* Điểm số tích lũy */}
-            <div className="bg-amber-50 border border-amber-200 rounded-xl py-1 px-2.5 flex items-center gap-1 text-xs" id="header-score" title="Tổng điểm số thực tế">
-              <Award className="w-4 h-4 text-amber-500 fill-amber-500" />
-              <span className="font-black text-amber-700 font-mono">{score}đ</span>
+              {/* Điểm số tích lũy */}
+              <div className="bg-amber-50 border border-amber-200 rounded-xl py-1 px-2 md:px-2.5 flex items-center gap-1 text-[10px] md:text-xs shadow-xs" id="header-score" title="Tổng điểm số thực tế">
+                <Award className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+                <span className="font-black text-amber-700 font-mono">{score}đ</span>
+              </div>
             </div>
 
             {/* Danh hiệu thực tế của bé */}
-            <div className={`hidden md:flex items-center gap-1 text-[11px] font-black px-2.5 py-1 rounded-xl shadow-xs border border-slate-200/40 ${badge.color}`} title="Danh hiệu thực tế dựa trên điểm số">
+            <div className={`hidden lg:flex items-center gap-1 text-[10px] md:text-xs font-black px-2.5 py-1 rounded-xl shadow-xs border border-slate-200/40 ${badge.color}`} title="Danh hiệu thực tế dựa trên điểm số">
               <span>{badge.emoji}</span>
               <span>{badge.name}</span>
             </div>
 
-            {/* Nút Cẩm nang hướng dẫn đo nhanh */}
-            <button
-              onClick={() => {
-                sound.playClick();
-                setShowGuideModal(true);
-              }}
-              className="p-2 bg-indigo-50 hover:bg-indigo-100 rounded-xl text-indigo-600 border border-indigo-200 transition-all cursor-pointer"
-              title="Xem cẩm nang đo góc"
-            >
-              <BookOpen className="w-4 h-4 " />
-            </button>
+            <div className="flex items-center gap-1 md:gap-1.5">
+              {/* Nút Cẩm nang hướng dẫn đo nhanh */}
+              <button
+                onClick={() => {
+                  sound.playClick();
+                  setShowGuideModal(true);
+                }}
+                className="p-1.5 bg-indigo-50 hover:bg-indigo-100 rounded-xl text-indigo-600 border border-indigo-200 transition-all cursor-pointer flex-shrink-0"
+                title="Xem cẩm nang đo góc"
+              >
+                <BookOpen className="w-3.5 h-3.5 md:w-4 md:h-4" />
+              </button>
 
-            {/* Nút Hoàn thành buổi học */}
-            <button
-              onClick={() => {
-                sound.playClick();
-                if (history.length === 0) {
-                  alert('Bé chưa có lịch sử làm bài nào cả. Hãy thử sức trả lời vài câu hỏi trước nhé! 🥰');
-                  return;
-                }
-                setSessionDurationSecs(elapsedSeconds);
-                setShowCompleteModal(true);
-              }}
-              className="px-3 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-black text-xs flex items-center gap-1.5 cursor-pointer transition-all active:scale-95 shadow-sm"
-              title="Hoàn thành buổi học"
-              id="complete-session-btn"
-            >
-              <Check className="w-4 h-4 stroke-[3px]" />
-              <span>Hoàn thành</span>
-            </button>
+              {/* Nút Hoàn thành buổi học */}
+              <button
+                onClick={() => {
+                  sound.playClick();
+                  if (history.length === 0) {
+                    alert('Bé chưa có lịch sử làm bài nào cả. Hãy thử sức trả lời vài câu hỏi trước nhé! 🥰');
+                    return;
+                  }
+                  setSessionDurationSecs(elapsedSeconds);
+                  setShowCompleteModal(true);
+                }}
+                className="px-2.5 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-black text-[10px] md:text-xs flex items-center gap-1 cursor-pointer transition-all active:scale-95 shadow-sm flex-shrink-0"
+                title="Hoàn thành buổi học"
+                id="complete-session-btn"
+              >
+                <Check className="w-3.5 h-3.5 stroke-[3px]" />
+                <span className="hidden xs:inline">Hoàn thành</span>
+                <span className="inline xs:hidden">Xong</span>
+              </button>
 
-            {/* Nút Âm thanh */}
-            <button
-              onClick={toggleMute}
-              className="p-2 bg-slate-50 hover:bg-slate-150 rounded-xl text-slate-500 border border-slate-200 transition-all cursor-pointer"
-              title={isMuted ? 'Bật âm thanh' : 'Tắt âm thanh'}
-            >
-              {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
-            </button>
+              {/* Nút Âm thanh cho Desktop */}
+              <button
+                onClick={toggleMute}
+                className="hidden md:block p-1.5 bg-slate-50 hover:bg-slate-150 rounded-xl text-slate-500 border border-slate-200 transition-all cursor-pointer flex-shrink-0"
+                title={isMuted ? 'Bật âm thanh' : 'Tắt âm thanh'}
+              >
+                {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+              </button>
+            </div>
           </div>
 
         </header>
 
-        {/* THANH THÔNG TIN HỌC SINH (STUDENT PROFILE BAR) */}
-        <div className="bg-slate-50 border-b border-slate-200 px-4 py-2 flex flex-wrap items-center justify-between gap-3 text-xs" id="student-profile-bar">
-          <div className="flex items-center gap-2">
-            <span className="font-extrabold text-slate-500">🎓 Học sinh đang học:</span>
-            <div className="flex items-center gap-2">
+        {/* THANH THÔNG TIN HỌC SINH (STUDENT PROFILE BAR) - RESPONSIVE */}
+        <div className="bg-slate-50 border-b border-slate-200 px-3 py-1.5 sm:px-4 sm:py-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs" id="student-profile-bar">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
+            <span className="font-extrabold text-slate-500 flex items-center gap-1">
+              🎓 <span>Học sinh:</span>
+            </span>
+            <div className="flex items-center gap-1.5 flex-1 sm:flex-initial">
               <input
                 type="text"
                 id="studentName"
                 value={studentName}
                 onChange={(e) => setStudentName(e.target.value)}
-                placeholder="Nhập tên của bé..."
-                className="px-3 py-1 bg-white border border-slate-300 rounded-lg font-black text-slate-800 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 min-w-[140px] text-xs transition-all shadow-xs"
+                placeholder="Họ tên của bé..."
+                className="px-2 py-1 bg-white border border-slate-300 rounded-lg font-black text-slate-800 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 w-full sm:w-[150px] text-[11px] transition-all shadow-xs"
                 title="Nhập họ tên của bé tại đây"
               />
               <input
@@ -354,20 +374,20 @@ export default function App() {
                 id="studentClass"
                 value={studentClass}
                 onChange={(e) => setStudentClass(e.target.value)}
-                placeholder="Nhập lớp..."
-                className="px-3 py-1 bg-white border border-slate-300 rounded-lg font-black text-slate-800 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 max-w-[100px] text-xs transition-all shadow-xs"
+                placeholder="Lớp..."
+                className="px-2 py-1 bg-white border border-slate-300 rounded-lg font-black text-slate-800 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 w-[70px] text-[11px] transition-all shadow-xs"
                 title="Nhập lớp của bé tại đây"
               />
             </div>
           </div>
-          <p className="text-[11px] text-slate-400 font-bold hidden md:block">
+          <p className="text-[10px] md:text-[11px] text-slate-400 font-bold hidden sm:block">
             ✨ Kết quả làm bài và danh hiệu sẽ được đồng bộ tự động lên Bảng xếp hạng và Google Sheets!
           </p>
         </div>
 
         {/* 2. KHU VỰC KHUNG GIAO DIỆN CHÍNH TRONG 1 MÀN HÌNH (MAIN CONTENT) */}
-        <main className="flex-1 overflow-hidden p-3 md:p-4 flex flex-col justify-center max-w-7xl w-full mx-auto" id="main-content-section">
-          <div className="flex-1 overflow-hidden">
+        <main className="flex-1 overflow-visible lg:overflow-hidden p-2 sm:p-3 md:p-4 flex flex-col justify-center max-w-7xl w-full mx-auto" id="main-content-section">
+          <div className="flex-1 overflow-visible lg:overflow-hidden">
             {activeTab === 'practice' ? (
               <EkeGame 
                 score={score} 

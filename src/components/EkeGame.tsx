@@ -908,10 +908,10 @@ export default function EkeGame({
   }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 h-full items-stretch overflow-hidden" id="eke-game-container">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 h-auto lg:h-full items-stretch overflow-visible lg:overflow-hidden" id="eke-game-container">
       
       {/* KHU VỰC LÀM BÀI CHÍNH (BÊN TRÁI - 7/12 COLS - TỐI ƯU CHIỀU CAO) */}
-      <div className="lg:col-span-7 bg-white rounded-2xl border-2 border-slate-200 shadow flex flex-col justify-between overflow-hidden relative" id="interactive-screen">
+      <div className="lg:col-span-7 bg-white rounded-2xl border-2 border-slate-200 shadow flex flex-col justify-between overflow-visible lg:overflow-hidden relative" id="interactive-screen">
         
         {/* Tiêu đề góc snap hoặc Header Adventure */}
         {gameMode === 'adventure' ? (
@@ -1358,7 +1358,7 @@ export default function EkeGame({
       </div>
 
       {/* BẢNG ĐIỀU KHIỂN, KẾT QUẢ, HƯỚNG DẪN (BÊN PHẢI - 5/12 COLS - KHÍT KHÔNG CUỘN) */}
-      <div className="lg:col-span-5 flex flex-col h-full overflow-y-auto pr-1 gap-2.5 pb-1" id="control-board">
+      <div className="lg:col-span-5 flex flex-col h-auto lg:h-full overflow-visible lg:overflow-y-auto pr-1 gap-2.5 pb-1" id="control-board">
         
         {gameMode === 'adventure' ? (
           <>
@@ -1672,7 +1672,7 @@ export default function EkeGame({
         )}
 
         {/* 5. TIỆN ÍCH PHÍA DƯỚI (BẢNG XẾP HẠNG & LỊCH SỬ) - CỐ ĐỊNH CHIỀU CAO ĐỂ TRÁNH TRÀN TRANG */}
-        <div className="flex-1 min-h-[160px] max-h-[220px] flex flex-col bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden" id="dashboard-bottom-panel">
+        <div className="h-[250px] lg:h-auto lg:flex-1 min-h-[180px] lg:max-h-[220px] flex flex-col bg-slate-50 rounded-2xl border-2 border-slate-200 overflow-hidden mt-2 lg:mt-0" id="dashboard-bottom-panel">
           
           {/* Header với Tab switcher và nút Đổi chế độ */}
           <div className="flex border-b border-slate-200 bg-slate-100/90 text-xs flex-shrink-0 py-2 px-3 items-center justify-between">

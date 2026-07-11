@@ -250,10 +250,10 @@ export default function Playground() {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 h-full items-stretch overflow-hidden" id="playground-container">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 h-auto lg:h-full items-stretch overflow-visible lg:overflow-hidden" id="playground-container">
       
       {/* KHUNG VẼ TỰ DO (LEFT SIDE - 7/12 COLS) */}
-      <div className="lg:col-span-7 bg-white rounded-2xl border-2 border-indigo-200 shadow flex flex-col justify-between overflow-hidden relative" id="playground-screen">
+      <div className="lg:col-span-7 bg-white rounded-2xl border-2 border-indigo-200 shadow flex flex-col justify-between overflow-visible lg:overflow-hidden relative" id="playground-screen">
         <div className="bg-indigo-50 border-b border-indigo-100 px-4 py-2 flex justify-between items-center text-slate-700">
           <div className="flex items-center gap-1.5">
             <Pencil className="w-4 h-4 text-indigo-500 animate-pulse" />
@@ -508,7 +508,7 @@ export default function Playground() {
       </div>
 
       {/* BẢNG ĐO GÓC & CHỈ SỐ (RIGHT SIDE - 5/12 COLS - KHÍT) */}
-      <div className="lg:col-span-5 flex flex-col gap-3 h-full overflow-y-auto pr-1 text-left">
+      <div className="lg:col-span-5 flex flex-col gap-3 h-auto lg:h-full overflow-visible lg:overflow-y-auto pr-1 text-left">
         
         {/* KHÔNG HIỂN THỊ THÔNG TIN GÓC VẼ SẴN - BÉ TỰ ĐO ĐỂ KHÁM PHÁ */}
         <div className="bg-white rounded-2xl border-2 border-slate-200 p-4 shadow flex flex-col gap-3">
